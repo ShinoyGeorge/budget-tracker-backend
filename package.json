@@ -1,14 +1,26 @@
 {
   "name": "budget-tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "A high-performance, RESTful API built with Node.js and Express.js, designed to handle the core logic of a multi-user personal finance management system. This backend follows the Controller-Service-Model architecture to ensure clean separation of concerns and easy scalability as the project evolves.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "dev": "nodemon --exec ts-node src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js"
   },
-  "dependencies": {},
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.1.0",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
-  "private": true
+  "private": true,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  }
 }
