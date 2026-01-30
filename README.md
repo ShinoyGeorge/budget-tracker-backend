@@ -1,0 +1,1 @@
+A high-performance, RESTful API built with Node.js and Express.js, designed to handle the core logic of a multi-user personal finance management system. This backend follows the Controller-Service-Model architecture to ensure clean separation of concerns and easy scalability as the project evolves.
