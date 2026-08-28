@@ -4,14 +4,19 @@
   "description": "A high-performance, RESTful API built with Node.js and Express.js, designed to handle the core logic of a multi-user personal finance management system. This backend follows the Controller-Service-Model architecture to ensure clean separation of concerns and easy scalability as the project evolves.",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node src/app.ts",
+    "start": "nodemon --exec ts-node src/app.ts",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "dev": "node dist/app.js"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.1.0",
+    "@types/pg": "^8.23.1",
     "nodemon": "^3.1.11",
+    "prisma": "^7.9.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
@@ -20,7 +25,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.3",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.23.0"
   }
 }

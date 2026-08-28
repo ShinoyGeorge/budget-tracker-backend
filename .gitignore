@@ -2,6 +2,7 @@
 /out-tsc
 /dist
 /.idea
+/.env
 
 /node_modules
 npm-debug.log*
@@ -11,3 +12,9 @@ yarn-error.log*
 .pnp.js
 
 .vscode/*
+/src/generated/prisma
+
+.agents/
+.claude/
+.windsurf/
+skills-lock.json

@@ -1,22 +1,34 @@
-import express, { Request, Response } from "express";
-import userRoutes from "./modules/users/user.routes";
-import {config} from "./config";
-import {logger} from "./middleware/logger";
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+
+dotenv.config();
+
+import accountRoutes from "./routes/account.routes";
+import authRoutes from "./routes/auth.routes";
+import adminRoutes from "./routes/admin.routes";
+import billRoutes from "./routes/bill.routes";
+import budgetRoutes from "./routes/budget.routes";
+import categoryRoutes from "./routes/category.routes";
+import houseHoldRoutes from "./routes/household.routes";
+import transactionRoutes from "./routes/transaction.routes";
+import transferRoutes from "./routes/transfer.routes";
 
 const app = express();
-
-/*Middleware*/
-/*body parser*/
 app.use(express.json());
-app.use(logger);
+app.use(cors({ origin: "http://localhost:5173" }));
+app.use("/api/accounts", accountRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/bills", billRoutes);
+app.use("/api/budgets", budgetRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/households", houseHoldRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/transfers", transferRoutes);
 
-/*Routes*/
-app.use("/users", userRoutes)
-app.get("/health", (req: Request, res: Response) => {
-    res.status(200).json({ status: "OK" });
-});
+const PORT = process.env.PORT || 3000;
 
-
-app.listen(config.port, () => {
-    console.log(`Server running on port ${config.port}`);
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
 });
