@@ -1,15 +1,14 @@
 import {Request, Response} from "express";
 import {
     createAccount,
-    CreateAccountInput,
     getAccountById,
     listAccounts,
     updateAccount,
-    UpdateAccountInput
 } from "../services/account.service";
 import {AuthenticatedUser} from "../types/express";
 import {AccountNotFoundError, InvalidPrivilegeError, UserNotFoundError} from "../errors";
 import {handleControllerError} from "./errorHandler";
+import {CreateAccountInput, UpdateAccountInput} from "../types/account";
 
 export async function createAccountController(req: Request, res: Response) {
     try {

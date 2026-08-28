@@ -3,6 +3,7 @@ import {PrismaPg} from "@prisma/adapter-pg";
 import {getUserOrThrow} from "./user.service";
 import {CategoryNotFoundError, InvalidPrivilegeError} from "../errors";
 import {AuthenticatedUser} from "../types/express";
+import {SetBudgetInput} from "../types/budget";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -16,13 +17,6 @@ async function assertCategoryAccessible(categoryId: string, householdId: string)
     if (!category.isGlobal && category.householdId !== householdId) {
         throw new InvalidPrivilegeError("You do not have access to this category");
     }
-}
-
-interface SetBudgetInput {
-    categoryId: string;
-    amount: number;
-    effectiveYear: number;
-    effectiveMonth: number; // 1-12
 }
 
 export async function setBudget(input: SetBudgetInput, caller: AuthenticatedUser) {

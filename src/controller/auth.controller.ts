@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {login, LoginResult, logout, refreshAccessToken, register} from "../services/auth.service";
+import {login, logout, refreshAccessToken, register} from "../services/auth.service";
 import {
     EmailInUseError,
     HouseholdExistsError,
@@ -8,6 +8,7 @@ import {
     PendingRequestError, UserNotFoundError
 } from "../errors";
 import {handleControllerError} from "./errorHandler";
+import {LoginResult} from "../types/auth";
 
 export async function loginController(req: Request, res: Response) {
     try {

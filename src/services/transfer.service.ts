@@ -3,18 +3,10 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { getUserOrThrow } from "./user.service";
 import { AccountNotFoundError, InvalidPrivilegeError } from "../errors";
 import { AuthenticatedUser } from "../types/express";
-import { TransactionType } from "../generated/prisma/client";
+import { TransactionType } from "../generated/prisma/enums";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
-
-interface CreateTransferInput {
-    fromAccountId: string;
-    toAccountId: string;
-    amount: number;
-    date: string;
-    description?: string;
-}
 
 export async function createTransfer(input: CreateTransferInput, caller: AuthenticatedUser) {
     const user = await getUserOrThrow(caller.sub);

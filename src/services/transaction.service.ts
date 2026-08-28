@@ -4,34 +4,10 @@ import { getUserOrThrow } from "./user.service";
 import { TransactionNotFoundError, InvalidPrivilegeError, AccountNotFoundError } from "../errors";
 import { AuthenticatedUser } from "../types/express";
 import { TransactionType } from "../generated/prisma/enums";
+import {CreateTransactionInput, ListTransactionsFilters, UpdateTransactionInput} from "../types/transaction";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
-
-interface CreateTransactionInput {
-    accountId: string;
-    type: "INCOME" | "EXPENSE";
-    amount: number;
-    date: string;
-    description?: string;
-    categoryId?: string;
-}
-
-interface ListTransactionsFilters {
-    accountId?: string;
-    category?: string; // categoryId
-    type?: string;
-    dateMin?: string;
-    dateMax?: string;
-}
-
-interface UpdateTransactionInput {
-    amount?: number;
-    date?: string;
-    description?: string;
-    categoryId?: string;
-    accountId?: string;
-}
 
 async function getOwnedAccountOrThrow(accountId: string, householdId: string) {
     const account = await prisma.account.findUnique({ where: { id: accountId } });

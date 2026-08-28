@@ -3,20 +3,10 @@ import {PrismaClient, TransactionType} from "../generated/prisma/client";
 import {PrismaPg} from "@prisma/adapter-pg";
 import {getUserOrThrow} from "./user.service";
 import {AccountNotFoundError, InvalidPrivilegeError} from "../errors";
+import {CreateAccountInput, UpdateAccountInput} from "../types/account";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
-
-export interface CreateAccountInput {
-    name: string;
-    accountType: string;
-    startingBalance: number;
-    institution?: string;
-}
-export interface UpdateAccountInput {
-    name?: string;
-    accountType?: string;
-}
 
 export async function createAccount(input: CreateAccountInput, creator: AuthenticatedUser) {
     const { name, accountType, startingBalance, institution } = input;

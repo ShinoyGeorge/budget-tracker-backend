@@ -31,7 +31,7 @@ export async function createTransactionController(req: Request, res: Response) {
 
 export async function listTransactionsController(req: Request, res: Response) {
     try {
-        const transactions = await listTransactions(req.query as any, req.user as AuthenticatedUser);
+        const transactions = await listTransactions(req.query, req.user as AuthenticatedUser);
         return res.status(200).json(transactions);
     } catch (error) {
         return handleControllerError(error,

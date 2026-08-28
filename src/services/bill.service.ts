@@ -3,25 +3,10 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { getUserOrThrow } from "./user.service";
 import { AccountNotFoundError, InvalidPrivilegeError, RecurringBillNotFoundError, CategoryNotFoundError } from "../errors";
 import { AuthenticatedUser } from "../types/express";
+import {CreateBillInput, UpdateBillInput} from "../types/bill";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
-
-interface CreateBillInput {
-    accountId: string;
-    categoryId?: string;
-    description: string;
-    amount: number;
-    dayOfMonth: number;
-}
-
-interface UpdateBillInput {
-    description?: string;
-    amount?: number;
-    dayOfMonth?: number;
-    accountId?: string;
-    categoryId?: string;
-}
 
 async function assertOwnedAccount(accountId: string, householdId: string) {
     const account = await prisma.account.findUnique({ where: { id: accountId } });

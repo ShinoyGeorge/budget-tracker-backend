@@ -11,28 +11,10 @@ import {
     HouseholdJoinRequestNotFoundError, HouseholdNotFoundError, InvalidCredentialsError,
     InvalidPrivilegeError, InvalidRefreshTokenError, PendingRequestError, UserNotFoundError
 } from "../errors";
+import {LoginResult, RegisterInput} from "../types/auth";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
-
-export interface LoginResult {
-    accessToken: string;
-    refreshToken: string;
-    user: {
-        id: string;
-        email: string;
-        role: string;
-        householdName: string;
-    };
-}
-
-export interface RegisterInput {
-    name: string;
-    email: string;
-    password: string;
-    isNewHouseHold: boolean;
-    householdName: string;
-}
 
 export async function approveHouseholdCreation(requestId: string): Promise<void> {
     const houseHoldCreationRequest = await prisma.householdCreationRequest.findUnique({ where: { id: requestId } });

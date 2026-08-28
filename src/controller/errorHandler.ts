@@ -1,9 +1,5 @@
 import { Response } from "express";
-
-interface ErrorMapping {
-    errorClass: new (...args: any[]) => Error;
-    status: number;
-}
+import {ErrorMapping} from "../types/errorHandler";
 
 export function handleControllerError(
     error: unknown,
