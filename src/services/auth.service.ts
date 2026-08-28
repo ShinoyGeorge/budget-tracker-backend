@@ -156,7 +156,7 @@ export async function login(email: string, password: string): Promise<LoginResul
     const accessToken = jwt.sign(
         { sub: user.id, role: user.role },
         process.env.JWT_SECRET as string,
-        { expiresIn: "2h" }
+        { expiresIn: "15m" }
     );
 
     const refreshToken = generateRefreshToken();
