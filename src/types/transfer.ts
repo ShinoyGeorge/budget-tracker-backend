@@ -1,4 +1,4 @@
-interface CreateTransferInput {
+export interface CreateTransferInput {
     fromAccountId: string;
     toAccountId: string;
     amount: number;

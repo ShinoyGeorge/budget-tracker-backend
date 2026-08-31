@@ -16,28 +16,6 @@ import {LoginResult, RegisterInput} from "../types/auth";
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
-export async function approveHouseholdCreation(requestId: string): Promise<void> {
-    const houseHoldCreationRequest = await prisma.householdCreationRequest.findUnique({ where: { id: requestId } });
-    if (!houseHoldCreationRequest) {
-        throw new HouseholdCreationRequestNotFoundError("Request to add house hold not found");
-    }
-
-    await prisma.$transaction(async (tx) => {
-        const household = await tx.household.create({
-            data: {name: houseHoldCreationRequest.householdName}
-        });
-        await tx.user.create({
-            data: {
-                email: houseHoldCreationRequest.email,
-                passwordHash: houseHoldCreationRequest.passwordHash,
-                role: Role.MEMBER,
-                householdId: household.id,
-                name: houseHoldCreationRequest.founderName,
-            }
-        });
-        await tx.householdCreationRequest.delete({ where: { id: requestId } })
-    });
-}
 
 export async function approveHouseholdJoin(requestId: string, loggedInUser: AuthenticatedUser): Promise<void> {
     const householdJoinRequest = await prisma.householdJoinRequest.findUnique({ where: { id: requestId } });

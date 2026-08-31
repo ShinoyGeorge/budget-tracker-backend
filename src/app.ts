@@ -16,7 +16,7 @@ import transferRoutes from "./routes/transfer.routes";
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: ["http://localhost:5173", "http://host.docker.internal:5173"] }));
 app.use("/api/accounts", accountRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
